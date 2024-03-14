@@ -18,12 +18,12 @@ export default function Index() {
                     <div className="foward-back-wrapper wrapper-base"></div>
                     <div className="reload-button-wrapper wrapper-base"></div>
                 </div>
-                <div className="search-wrapper absolute w-[70vw] h-[calc(var(--nav-height)-var(--uni-margin))] top-[calc(var(--nav-height)-(var(--nav-height)-var(--uni-margin)*2)-var(--uni-margin))] wrapper-base bg-slate-800 bg-opacity-25 uni-border search-effect border-slate-400 left-[calc((var(--nav-height)-var(--uni-margin))*3+var(--uni-margin)*3-var(--border-thickness)*3)]"></div>
-                <div className="controls-wrapper">
-                    <div className="light-dark-wrapper wrapper-base">
+                <div className="search-wrapper h-[calc(var(--nav-height)-var(--uni-margin))] m-[calc(var(--uni-margin)*2-var(--uni-margin))] wrapper-base bg-slate-800 bg-opacity-25 uni-border search-effect border-slate-400"></div>
+                <div className="controls-wrapper flex">
+                    <div className="light-dark-wrapper wrapper-base h-[calc(var(--nav-height)-var(--uni-margin))]">
                         <SunMoon />
                     </div>
-                    <div className="settings-wrapper wrapper-base">
+                    <div className="settings-wrapper wrapper-base h-[calc(var(--nav-height)-var(--uni-margin))] w-[calc(var(--nav-height)-var(--uni-margin))]">
                         <Settings2 />
                     </div>
                 </div>
