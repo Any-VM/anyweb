@@ -14,11 +14,13 @@ export default function Index() {
     return (
         <main>
             <nav className="absolute top-0 left-0 w-screen h-[var(--nav-height)]">
-                <div className="nav-controls-wrapper">
+                <div className="nav-controls-wrapper flex">
                     <div className="foward-back-wrapper wrapper-base"></div>
                     <div className="reload-button-wrapper wrapper-base"></div>
                 </div>
-                <div className="search-wrapper h-[calc(var(--nav-height)-var(--uni-margin))] m-[calc(var(--uni-margin)*2-var(--uni-margin))] wrapper-base bg-slate-800 bg-opacity-25 uni-border search-effect border-slate-400"></div>
+
+                <div className="search-wrapper h-[calc(var(--nav-height)-var(--uni-margin))] m-[calc(var(--uni-margin)*2-var(--uni-margin))] wrapper-base bg-slate-800 bg-opacity-25 uni-border search-effect border-slate-400 w-"></div>
+                
                 <div className="controls-wrapper flex">
                     <div className="light-dark-wrapper wrapper-base h-[calc(var(--nav-height)-var(--uni-margin))]">
                         <SunMoon />
@@ -28,11 +30,13 @@ export default function Index() {
                     </div>
                 </div>
             </nav>
-            <hr className="absolute top-[calc(var(--nav-height)+var(--uni-margin))] w-screen uni-border-half wrapper-base" />
-            <div className="window-wrapper flex justify-center bottom-0 h-[calc(100vh-var(--uni-margin)*2-var(--nav-height))]">
+
+            <div className="absolute top-[calc(var(--nav-height)+var(--uni-margin))] w-screen uni-border-half wrapper-base h-0"></div>
+            
+            <div className="window-wrapper absolute top-[calc(var(--nav-height)+var(--uni-margin)+var(--border-thickness)/2)] w-screen h-[calc(100vh-var(--uni-margin)*2-var(--nav-height))]">
                 <iframe
                     src=""
-                    className="absolute w-[calc(100vw-var(--uni-margin)*2)] bottom-[var(--uni-margin)] h-[calc(100vh-var(--uni-margin)*3-var(--nav-height)-var(--border-thickness))] uni-border wrapper-base"
+                    className="flex justify-center uni-border wrapper-base m-[calc(var(--uni-margin)*2-var(--uni-margin))] w-[calc(100vw-var(--uni-margin)*2)] bottom-[var(--uni-margin)] h-[calc(100vh-var(--uni-margin)*3-var(--nav-height)-var(--border-thickness))]"
                 ></iframe>
             </div>
         </main>
