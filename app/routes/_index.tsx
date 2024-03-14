@@ -13,13 +13,13 @@ export const meta: MetaFunction = () => {
 export default function Index() {
     return (
         <main>
-            <nav className="absolute top-0 left-0 w-screen h-[var(--nav-height)]">
+            <nav className="flex w-screen h-[var(--nav-height)] justify-start">
                 <div className="nav-controls-wrapper flex">
                     <div className="foward-back-wrapper wrapper-base"></div>
                     <div className="reload-button-wrapper wrapper-base"></div>
                 </div>
 
-                <div className="search-wrapper h-[calc(var(--nav-height)-var(--uni-margin))] m-[calc(var(--uni-margin)*2-var(--uni-margin))] wrapper-base bg-slate-800 bg-opacity-25 uni-border search-effect border-slate-400 w-"></div>
+                <input className="search-wrapper flex justify-start align-center flex-grow h-[calc(var(--nav-height)-var(--uni-margin))] m-[calc(var(--uni-margin)*2-var(--uni-margin))] wrapper-base bg-slate-800 bg-opacity-25 uni-border search-effect border-slate-400 focus:outline-none" />
                 
                 <div className="controls-wrapper flex">
                     <div className="light-dark-wrapper wrapper-base h-[calc(var(--nav-height)-var(--uni-margin))]">
