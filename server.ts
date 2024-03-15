@@ -3,6 +3,9 @@ import { installGlobals } from "@remix-run/node";
 import compression from "compression";
 import express from "express";
 import morgan from "morgan";
+import { epoxyPath } from "@mercuryworkshop/epoxy-transport";
+import { baremuxPath } from "@mercuryworkshop/bare-mux";
+import wisp from "wisp-server-node";
 
 installGlobals();
 
@@ -26,7 +29,8 @@ const remixHandler = createRequestHandler({
 
 const app = express();
 
-app.use(compression());
+app.use("/epoxy/", express.static(epoxyPath));
+app.use("/baremux/", express.static(baremuxPath));
 
 // http://expressjs.com/en/advanced/best-practice-security.html#at-a-minimum-disable-x-powered-by-header
 app.disable("x-powered-by");
