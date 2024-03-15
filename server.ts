@@ -5,7 +5,7 @@ import express from "express";
 import morgan from "morgan";
 import { epoxyPath } from "@mercuryworkshop/epoxy-transport";
 import { baremuxPath } from "@mercuryworkshop/bare-mux";
-import wisp from "wisp-server-node";
+// import wisp from "wisp-server-node";
 
 installGlobals();
 
@@ -28,7 +28,7 @@ const remixHandler = createRequestHandler({
 });
 
 const app = express();
-
+app.use(compression());
 app.use("/epoxy/", express.static(epoxyPath));
 app.use("/baremux/", express.static(baremuxPath));
 

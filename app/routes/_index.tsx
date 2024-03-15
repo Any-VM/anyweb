@@ -1,8 +1,23 @@
 import type { MetaFunction } from "@remix-run/node";
+import {
+  ArrowLeft,
+  ArrowRight,
+  RotateCw,
+  Settings2,
+  Moon,
+  Code,
+  ArrowUpRightFromSquare,
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { ArrowLeft, ArrowRight, RotateCw, Settings2, Moon } from "lucide-react";
 import { Input } from "@/components/ui/input";
-
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 export const meta: MetaFunction = () => {
   return [
     { title: "Anyweb" },
@@ -17,31 +32,50 @@ export const meta: MetaFunction = () => {
 export default function Index() {
   return (
     <main className="h-screen overflow-clip">
-      <nav className="fixed w-screen flex h-14 items-center justify-center border-b p-2 z-50 mb-14 bg-background">
-        <div className="justify-start flex-row flex space-x-2">
-          <Button variant="outline" className="size-10 flex flex-col">
-            <ArrowLeft className="text-foreground size-6" />
+      <nav className="fixed z-50 mb-14 flex h-14 w-screen items-center justify-center border-b bg-background p-2">
+        <div className="flex flex-row justify-start space-x-2">
+          <Button variant="outline" className="flex size-10 flex-col">
+            <ArrowLeft className="size-4 text-foreground" />
           </Button>
-          <Button variant="outline" className="size-10 flex flex-col">
-            <ArrowRight className="text-foreground size-6" />
+          <Button variant="outline" className="flex size-10 flex-col">
+            <ArrowRight className="size-4 text-foreground" />
           </Button>
-          <Button variant="outline" className="size-10 flex flex-col">
-            <RotateCw className="text-foreground size-6" />
+          <Button variant="outline" className="flex size-10 flex-col">
+            <RotateCw className="size-4 text-foreground" />
           </Button>
         </div>
-        <Input className="m-2" placeholder="Browse the web, uncensored" />
-        <div className="justify-end flex-row flex space-x-2">
-          <Button variant="outline" className="size-10 flex flex-col">
-            <Moon className="text-foreground size-6" />
+        <Input
+          className="m-2 focus-visible:ring-0 focus-visible:ring-offset-0"
+          placeholder="Browse the web, uncensored"
+        />
+        <div className="flex flex-row justify-end space-x-2">
+          <Button variant="outline" className="flex size-10 flex-col">
+            <Moon className="size-4 text-foreground" />
           </Button>
-          <Button variant="outline" className="size-10 flex flex-col">
-            <Settings2 className="text-foreground size-6" />
-          </Button>
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button variant="outline" className="flex size-10 flex-col">
+                <Settings2 className="size-4 text-foreground" />
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent className="w-64">
+              <DropdownMenuLabel>Settings</DropdownMenuLabel>
+              <DropdownMenuSeparator />
+              <DropdownMenuItem>
+                <Code className="mr-2 size-4" />
+                <span>DevTools</span>
+              </DropdownMenuItem>
+              <DropdownMenuItem>
+                <ArrowUpRightFromSquare className="mr-2 size-4" />
+                <span>Open in new tab</span>
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
         </div>
       </nav>
       <iframe
         src="https://react.dev"
-        className="w-full h-[95vh] translate-y-14"
+        className="h-[95vh] w-full translate-y-14 select-none"
         title="Proxied Site"
       />
     </main>

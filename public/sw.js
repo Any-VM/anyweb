@@ -1,8 +1,8 @@
 const swAllowedHostnames = ["localhost", "127.0.0.1", "10.0.0.1"];
 
 async function registerSW() {
-  const wispserver = `${window.location.origin.replace('https://', 'ws://')}/wisp` //await Filer.fs.promises.readFile()
-  console.log(wispserver)
+  const wispserver = `${window.location.origin.replace("https://", "ws://")}/wisp`; //await Filer.fs.promises.readFile()
+  console.log(wispserver);
   if (
     location.protocol !== "https:" &&
     !swAllowedHostnames.includes(location.hostname)
@@ -13,10 +13,10 @@ async function registerSW() {
     throw new Error("Your browser doesn't support service workers.");
 
   await navigator.serviceWorker.register("/uv/sw.js", {
-    scope: '/uv/service/',
+    scope: "/uv/service/",
   });
   await navigator.serviceWorker.register("anura-sw.js", {
-    scope: '/',
+    scope: "/",
   });
   console.log("UV Service Worker registered.");
   BareMux.registerRemoteListener(navigator.serviceWorker.controller);
