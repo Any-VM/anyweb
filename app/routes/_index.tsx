@@ -54,7 +54,7 @@ export default function Index() {
           </Button>
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <Button variant="outline" className="flex size-10 flex-col">
+              <Button variant="outline" className="flex size-10 flex-col focus-visible:ring-none focus-visible:ring-transparent">
                 <Settings2 className="size-4 text-foreground hover:scale-110 transition-all duration-300 delay-100 focus-visible:ring-0" />
               </Button>
             </DropdownMenuTrigger>
