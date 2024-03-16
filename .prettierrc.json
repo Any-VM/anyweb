@@ -1,4 +1,4 @@
 {
-  "$schema": "https://json.schemastore.org/prettierrc",
-  "plugins": ["prettier-plugin-tailwindcss"]
+    "$schema": "https://json.schemastore.org/prettierrc",
+    "plugins": ["prettier-plugin-tailwindcss"]
 }
