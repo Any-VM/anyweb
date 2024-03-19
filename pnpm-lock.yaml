@@ -38,6 +38,9 @@ dependencies:
   compression:
     specifier: ^1.7.4
     version: 1.7.4
+  eruda:
+    specifier: ^3.0.1
+    version: 3.0.1
   express:
     specifier: ^4.18.3
     version: 4.18.3
@@ -3138,6 +3141,10 @@ packages:
   /err-code@2.0.3:
     resolution: {integrity: sha512-2bmlRpNKBxT/CRmPOlyISQpNj+qSeYvcym/uT0Jx2bMOlKLtSy1ZmLuVxSEKKyor/N5yhvp/ZiG1oE3DEYMSFA==}
     dev: true
+
+  /eruda@3.0.1:
+    resolution: {integrity: sha512-6q1Xdwga4JTr1mKSW4mzuWSSbmXgqpm/8Wa1QGFGfCWRjC0bCQjbS4u06M1te1moucIS3hBLlbSTPWYH2W0qbQ==}
+    dev: false
 
   /es-abstract@1.22.5:
     resolution: {integrity: sha512-oW69R+4q2wG+Hc3KZePPZxOiisRIqfKBVo/HLx94QcJeWGU/8sZhCvc829rd1kS366vlJbzBfXf9yWwf0+Ko7w==}
