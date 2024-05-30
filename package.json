@@ -4,12 +4,12 @@
 	"sideEffects": false,
 	"type": "module",
 	"scripts": {
-		"build": "remix vite:build",
+		"build": "remix vite:build && tsc --project tsconfig.worker.json",
 		"dev": "tsx server.ts",
 		"lint": "eslint --ignore-path .gitignore --cache --cache-location ./node_modules/.cache/eslint .",
 		"format": "prettier --write .",
 		"start": "cross-env NODE_ENV=production tsx server.ts",
-		"typecheck": "tsc"
+		"typecheck": "tsc"		
 	},
 	"dependencies": {
 		"@mercuryworkshop/bare-mux": "1.0.5",
@@ -66,6 +66,8 @@
 		"vaul": "^0.9.0",
 		"vite-plugin-static-copy": "^1.0.1",
 		"wisp-server-node": "^1.0.2",
+		"workbox-routing": "^7.1.0",
+		"workbox-strategies": "^7.1.0",
 		"ws": "^8.16.0",
 		"x": "^0.1.2"
 	},

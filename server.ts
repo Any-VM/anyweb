@@ -1,4 +1,6 @@
 import { createRequestHandler } from "@remix-run/express";
+import { fileURLToPath } from 'url';
+import { dirname } from 'path';
 import { installGlobals } from "@remix-run/node";
 import compression from "compression";
 import express, { Request, Response } from "express";
@@ -6,10 +8,13 @@ import morgan from "morgan";
 import { createServer } from "http";
 import { Socket, Head } from "ws";
 import wisp from "wisp-server-node";
-
+import path from 'path';
 
 installGlobals();
 const port = process.env.PORT || 3000;
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
 const viteDevServer =
 	process.env.NODE_ENV === "production"
 		? undefined
@@ -46,6 +51,7 @@ if (viteDevServer) {
 }
 
 app.use(express.static("build/client", { maxAge: "1h" }));
+app.use('/service-worker.js', express.static(path.join(__dirname, '/app/public/service-worker.tsx')));
 
 app.use(morgan("tiny"));
 

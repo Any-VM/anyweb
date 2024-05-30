@@ -22,36 +22,47 @@ export default function Index() {
 
 	useEffect(() => {
 		const params = new URLSearchParams(location.search);
-		const search = params.get("search");
-		if (search) {
-			const src = decodeURIComponent(atob(search));
-
+		const q = params.get("q");
+		if (q) {
+			const src = decodeURIComponent(atob(q));
+	
 			// fancy giberish to check if src is a valid URL or just a search query
 			const urlPattern = new RegExp(
 				"^(https?:\\/\\/)?" +
-					"((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|" +
-					"((\\d{1,3}\\.){3}\\d{1,3}))" +
-					"(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*" +
-					"(\\?[;&a-z\\d%_.~+=-]*)?" +
-					"(\\#[-a-z\\d_]*)?$",
+				"((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|" +
+				"((\\d{1,3}\\.){3}\\d{1,3}))" +
+				"(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*" +
+				"(\\?[;&a-z\\d%_.~+=-]*)?" +
+				"(\\#[-a-z\\d_]*)?$",
 				"i",
 			);
 			if (urlPattern.test(src)) {
-				setIframeSrc(src);
-				setSearchHistory((prevHistory) => [...prevHistory, src]);
-				setCurrentHistoryIndex((prevIndex) => prevIndex + 1);
+				const handleMessage = (event: MessageEvent) => {
+					setIframeSrc(event.data);
+					setSearchHistory((prevHistory: string[]) => [...prevHistory, src]);
+					setCurrentHistoryIndex((prevIndex: number) => prevIndex + 1);
+				};
+	
+				navigator.serviceWorker.addEventListener('message', handleMessage);
+				return () => {
+					navigator.serviceWorker.removeEventListener('message', handleMessage);
+				};
 			} else {
-				const duckDuckGoUrl = `https://duckduckgo.com/?q=${encodeURIComponent(src)}`;
-				setIframeSrc(duckDuckGoUrl);
-				setSearchHistory((prevHistory) => [
-					...prevHistory,
-					duckDuckGoUrl,
-				]);
-				setCurrentHistoryIndex((prevIndex) => prevIndex + 1);
+				const duckDuckGoUrl = `https://duckduckgo.com/?q=${encodeURIComponent(src)}`;				
+				const handleMessage = (event: MessageEvent) => {					
+					setIframeSrc(event.data);
+					setSearchHistory((prevHistory: string[]) => [...prevHistory, duckDuckGoUrl]);
+					setCurrentHistoryIndex((prevIndex: number) => prevIndex + 1);
+				};
+	
+				navigator.serviceWorker.addEventListener('message', handleMessage);
+				return () => {
+					navigator.serviceWorker.removeEventListener('message', handleMessage);
+				};
 			}
 		}
 	}, [location]);
-
+	
 	useEffect(() => {
 		localStorage.setItem("searchHistory", JSON.stringify(searchHistory));
 	}, [searchHistory]);
@@ -73,27 +84,27 @@ export default function Index() {
 	// if someone other then me reads this, its easy to make forward and back buttons, just use the goBack and goForward functions on a button or smth, u can figure this out. Also you can use the searchHistory array to make a history view type thing
 
 	return (
-		<main className="h-screen overflow-hidden">
-			<Link to="/" prefetch="render" />
-			<Link to="/g" prefetch="render" />
+        <main className="h-screen overflow-hidden">
+            <Link to="/" prefetch="render" />
+            <Link to="/g" prefetch="render" />
 
-			<TopBar />
+            <TopBar />
 
-			<iframe
-				src={iframeSrc}
-				title="AnyWeb Search"
-				className="absolute bottom-0 h-[calc(100vh-56px)] w-screen"
-				onLoad={(event) => {
-					const iframe = event.target as HTMLIFrameElement;
-					const iframeUrl = iframe.contentWindow?.location.href;
-					if (iframeUrl) {
-						setSearchHistory((prevHistory) => [
-							...prevHistory,
-							iframeUrl,
-						]);
-						setCurrentHistoryIndex((prevIndex) => prevIndex + 1);
-					}
-				}}></iframe>
-		</main>
-	);
+            <iframe
+                src={iframeSrc}
+                sandbox="allow-same-origin allow-scripts"
+                onLoad={(event) => {
+                    const iframe = event.target as HTMLIFrameElement;
+                    const originalUrl = iframe.contentWindow?.location.href;
+                    if (originalUrl) {
+                        setSearchHistory((prevHistory) => [
+                            ...prevHistory,
+                            originalUrl,
+                        ]);
+                        setCurrentHistoryIndex((prevIndex) => prevIndex + 1);
+                    }
+                }}
+            ></iframe>
+        </main>
+    );
 }
