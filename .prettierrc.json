@@ -1,6 +1,13 @@
 {
-	"$schema": "https://json.schemastore.org/prettierrc",
-	"plugins": ["prettier-plugin-tailwindcss"],
-	"tabWidth": 4,
-	"useTabs": true
+    "$schema": "https://json.schemastore.org/prettierrc",
+    "plugins": ["prettier-plugin-tailwindcss"],
+    "tabWidth": 4,
+    "useTabs": true,
+    "semi": true,
+    "bracketSpacing": true,
+    "jsxBracketSameLine": true,
+    "arrowParens": "always",
+    "requirePragma": false,
+    "insertPragma": false,
+    "proseWrap": "preserve"
 }

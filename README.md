@@ -1,3 +1,5 @@
-# anyweb
-
-The official anyWeb Proxy Site repository!!! :3
+tech stack:
+ - Remix
+ - Vite (plugin)
+ - Tailwindcss
+ - Typescript

@@ -4,40 +4,10 @@
 
 @layer base {
 	:root {
-		--background: 0 0% 100%;
-		--foreground: 222.2 84% 4.9%;
-
-		--card: 0 0% 100%;
-		--card-foreground: 222.2 84% 4.9%;
-
-		--popover: 0 0% 100%;
-		--popover-foreground: 222.2 84% 4.9%;
-
-		--primary: 222.2 47.4% 11.2%;
-		--primary-foreground: 210 40% 98%;
-
-		--secondary: 210 40% 96.1%;
-		--secondary-foreground: 222.2 47.4% 11.2%;
-
-		--muted: 210 40% 96.1%;
-		--muted-foreground: 215.4 16.3% 46.9%;
-
-		--accent: 210 40% 96.1%;
-		--accent-foreground: 222.2 47.4% 11.2%;
-
-		--destructive: 0 84.2% 60.2%;
-		--destructive-foreground: 210 40% 98%;
-
-		--border: 214.3 31.8% 91.4%;
-		--input: 214.3 31.8% 91.4%;
-		--ring: 222.2 84% 4.9%;
-
-		--radius: 0.5rem;
-	}
-
-	.dark {
 		--background: 222.2 84% 4.9%;
 		--foreground: 210 40% 98%;
+		--background-button: #0001053f;
+		--background-dark: #0001059f;
 
 		--card: 222.2 84% 4.9%;
 		--card-foreground: 210 40% 98%;
@@ -61,17 +31,93 @@
 		--destructive-foreground: 210 40% 98%;
 
 		--border: 217.2 32.6% 17.5%;
+		--border-light: #8e9cb1;
 		--input: 217.2 32.6% 17.5%;
 		--ring: 212.7 26.8% 83.9%;
+
+		--radius: 0.5rem;
 	}
 }
 
 @layer base {
 	* {
-		@apply border-border;
+		@apply border-border transition-all duration-300;
 	}
 	body {
 		@apply bg-background font-sans text-foreground;
+		overflow: hidden;
+	}
+	.input-text-blur {
+		@apply transition-all duration-300;
+	}
+	.input-text-blur::placeholder {
+		filter: blur(0.4px);
+	}
+	.input-text-blur:hover::placeholder {
+		filter: blur(0.5px);
+	}
+	.input-text-blur:focus::placeholder {
+		filter: blur(0.6px);
+	}
+	.current-page {
+		@apply !w-24 shadow-[0_0_15px_0px_rgba(30,41,59,0.75)_inset] transition-all delay-300;
+	}
+	#particles-js {
+		position: absolute;
+		width: 100%;
+		height: 100%;
+		filter: blur(1px);
+	}
+	.default-bg {
+		background: radial-gradient(
+			100% 100% at 50% 0%,
+			#020817 70%,
+			#041130 100%
+		);
+		user-select: none;
+		z-index: 9;
+		mask-image: radial-gradient(ellipse, transparent 12%, black 40%);
+		filter: blur(15px);
+	}
+	.hero {
+		filter: blur(5px);
+		text-shadow: 0 0 100px #fff;
+		z-index: 3;
+	}
+	.hero-hover {
+		filter: blur(2.5px);
+		text-shadow: 0 0 45px #fff;
+		z-index: 3;
+	}
+	.hero-clicked {
+		filter: blur(0.25px);
+		text-shadow: 0 0 45px #fff;
+		z-index: 3;
+	}
+	.italianno-regular {
+		font-family: "Italianno", cursive;
+		font-weight: 400;
+		font-style: normal;
+	}
+	.button-content {
+		@apply size-4 text-foreground delay-150 hover:scale-110;
+	}
+	.hero-line {
+		filter: blur(5px);
+	}
+	.hero-line-hover {
+		filter: drop-shadow(0px 2px 5px #1e293b)
+			drop-shadow(0px 5px 20px #1e293b) blur(1px);
+	}
+	.clock {
+		filter: drop-shadow(0px 2px 5px #8e9cb1)
+			drop-shadow(0px 5px 20px #8e9cb1) blur(0.5px);
+	}
+	.text-unimportant {
+		filter: blur(85px);
+	}
+	.contrib {
+		@apply inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 transition-all duration-300 border border-input bg-[color:var(--background-button)] hover:shadow-[0_0_15px_0px_rgba(30,41,59,0.75)_inset] hover:text-accent-foreground p-4;
 	}
 }
 @font-face {
