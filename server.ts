@@ -5,13 +5,14 @@ import { installGlobals } from "@remix-run/node";
 import compression from "compression";
 import express, { Request, Response } from "express";
 import morgan from "morgan";
-import { createServer } from "http";
-import { Socket, Head } from "ws";
-import wisp from "wisp-server-node";
+import { createServer, IncomingMessage, ServerResponse } from 'http';
+import { Socket } from 'net'; 
+import wisp from 'wisp-server-node';
+
 import path from 'path';
 
 installGlobals();
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 3001;
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
@@ -61,9 +62,9 @@ const server = createServer();
 server.on("request", (req: Request, res: Response) => {
 	app(req, res);
 });
-server.on("upgrade", (req: Request, socket: Socket, head: Head) => {
-	if (req.url.endsWith("/wisp/")) {
-		wisp.routeRequest(req, socket, head);
+server.on('upgrade', (req: IncomingMessage, socket: Socket, head: Buffer) => {
+	if (req.url && req.url.endsWith('/wisp/')) {
+	  wisp.routeRequest(req, socket, head);
 	}
 });
 server.listen(port, () => {
