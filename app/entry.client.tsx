@@ -4,7 +4,7 @@ import { startTransition, StrictMode } from "react";
 import { hydrateRoot } from "react-dom/client";
 
 if ('serviceWorker' in navigator) {
-	navigator.serviceWorker.register('/service-worker.js')
+	navigator.serviceWorker.register('/app/public/service-worker.tsx')
 	  .then((registration) => {
 		console.log('Service Worker registered with scope:', registration.scope);
 	  })

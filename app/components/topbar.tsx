@@ -31,33 +31,38 @@ import {
 import React, { useState, useEffect, useRef } from "react";
 import { Link, useNavigate, useLocation, Links } from "@remix-run/react";
 import eruda from "eruda";
-
+import { Path, To } from "react-router";
+declare global {
+	interface Navigator {
+	  getHighEntropyValues?: (props: string[]) => Promise<{ [key: string]: string }>;
+	}
+  }
 export default function TopBar() {
 	const [erudaIsToggled, setErudaIsToggled] = useState(false);
-	const erudaRef = useRef(null);
+	const erudaRef = useRef<any>(null);
 
 	useEffect(() => {
 		if (erudaIsToggled) {
-			import("eruda").then((eruda) => {
-				if (!erudaRef.current) {
-					eruda.init({
-						useShadowDom: true,
-						autoScale: true,
-						defaults: {
-							displaySize: 45,
-							transparency: 0.8,
-							theme: "Arc Dark",
-						},
-					});
-					eruda.show();
-					erudaRef.current = eruda;
-				} else eruda.show();
-			});
+		  import("eruda").then((eruda) => {
+			if (!erudaRef.current) {
+			  (eruda as any).init({
+				useShadowDom: true,
+				autoScale: true,
+				defaults: {
+				  displaySize: 45,
+				  transparency: 0.8,
+				  theme: "Arc Dark",
+				},
+			  });
+			  erudaRef.current = eruda;
+			}
+			eruda.default.show();
+		  });
 		} else if (erudaRef.current) {
-			erudaRef.current.destroy();
-			erudaRef.current = null;
+		  erudaRef.current.destroy();
+		  erudaRef.current = null;
 		}
-	}, [erudaIsToggled]);
+	  }, [erudaIsToggled]);
 
 	const loadEruda = () => setErudaIsToggled(!erudaIsToggled);
 
@@ -65,11 +70,11 @@ export default function TopBar() {
 	const navigate = useNavigate();
 	const [clicked, setClicked] = useState("");
 	const [hovered, setHovered] = useState("");
-	const delayNavigation = (to, delay) => {
+	const delayNavigation = (to: To, delay: number | undefined) => {
 		setTimeout(() => navigate(to), delay);
 	};
 
-	const pageSelectEffect = (path) => {
+	const pageSelectEffect = (path: string) => {
 		let baseClass = "flex size-10 flex-col transition-all ";
 
 		if (
@@ -88,7 +93,7 @@ export default function TopBar() {
 		}, 50);
 	}, []);
 
-	const handleMouseEnter = (path) => {
+	const handleMouseEnter = (path: React.SetStateAction<string>) => {
 		setHovered(path);
 	};
 
@@ -98,14 +103,14 @@ export default function TopBar() {
 		}
 	};
 
-	const handleClick = (path) => {
-		setClicked(path);
-		delayNavigation(path, 300);
+	const handleClick = (path: string | ((prevState: string) => string) | Partial<Path>) => {
+		setClicked(path.toString());
+		delayNavigation(path.toString(), 300);
 	};
 
 	const proxSearchInput = useRef<HTMLInputElement>(null);
 	useEffect(() => {
-		const handleKeyDown = (event) => {
+		const handleKeyDown = (event: { metaKey: any; ctrlKey: any; key: string; preventDefault: () => void; }) => {
 			if ((event.metaKey || event.ctrlKey) && event.key === ",") {
 				event.preventDefault();
 				if (proxSearchInput.current) {
@@ -122,7 +127,7 @@ export default function TopBar() {
 
 	const gamSearchInput = useRef<HTMLInputElement>(null);
 	useEffect(() => {
-		const handleKeyDown = (event) => {
+		const handleKeyDown = (event: { metaKey: any; ctrlKey: any; key: string; preventDefault: () => void; }) => {
 			if ((event.metaKey || event.ctrlKey) && event.key === ".") {
 				event.preventDefault();
 				if (gamSearchInput.current) {
@@ -139,38 +144,41 @@ export default function TopBar() {
 
 	const [isMacOS, setIsMacOS] = useState(false);
 	useEffect(() => {
-		const checkMacOS = () => {
-			if (navigator.userAgentData) {
-				navigator.userAgentData
-					.getHighEntropyValues(["platform"])
-					.then((result) => {
-						setIsMacOS(result.platform === "macOS");
-					});
-			} else {
-				const userAgent = navigator.userAgent.toLowerCase();
-				setIsMacOS(userAgent.includes("mac"));
-			}
-		};
-
-		checkMacOS();
+	  const checkMacOS = () => {
+		if (navigator.userAgent) {
+		  if (navigator.getHighEntropyValues) {
+			navigator.getHighEntropyValues(["platform"])
+			  .then((result: { [key: string]: string; }) => {
+				setIsMacOS(result.platform === "macOS");
+			  });
+		  } else {
+			const userAgent = navigator.userAgent.toLowerCase();
+			setIsMacOS(userAgent.includes("mac"));
+		  }
+		} else {
+		  const userAgent = navigator.userAgent.toLowerCase();
+		  setIsMacOS(userAgent.includes("mac"));
+		}
+	  };
+	  checkMacOS();
 	}, []);
 
 	const [inputValueP, setInputValueP] = useState("");
     const [inputValueG, setInputValueG] = useState("");
-	const handleInputChangeP = (e) => {
+	const handleInputChangeP = (e: { target: { value: React.SetStateAction<string>; }; }) => {
 		setInputValueP(e.target.value);
 	};
-    const handleInputChangeG = (e) => {
+    const handleInputChangeG = (e: { target: { value: React.SetStateAction<string>; }; }) => {
 		setInputValueG(e.target.value);
 	};
-	const handleKeyDownPSearch = (event) => {
+	const handleKeyDownPSearch = (event: { key: string; preventDefault: () => void; }) => {
 		if (event.key === "Enter") {
 			event.preventDefault();
 			const encodedSearch = btoa(encodeURIComponent(inputValueP));
 			navigate(`/p?search=${encodedSearch}`);
 		}
 	};
-	const handleKeyDownGSearch = (event) => {
+	const handleKeyDownGSearch = (event: { key: string; preventDefault: () => void; }) => {
 		if (event.key === "Enter") {
 			event.preventDefault();
 			const encodedSearch = btoa(encodeURIComponent(inputValueG));

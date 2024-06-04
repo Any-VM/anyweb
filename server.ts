@@ -8,13 +8,11 @@ import morgan from "morgan";
 import { createServer, IncomingMessage, ServerResponse } from 'http';
 import { Socket } from 'net'; 
 import wisp from 'wisp-server-node';
+import dotenv from 'dotenv';
 
-import path from 'path';
-
+dotenv.config();
 installGlobals();
-const port = process.env.PORT || 3001;
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
+const port = parseInt(process.env.PORT as string, 10);
 
 const viteDevServer =
 	process.env.NODE_ENV === "production"
@@ -23,7 +21,7 @@ const viteDevServer =
 				vite.createServer({
 					server: { middlewareMode: true },
 				}),
-			);
+			); // port 24678 is the default port for Vite's server cannot use same port as express
 
 const remixHandler = createRequestHandler({
 	build: viteDevServer
@@ -52,7 +50,6 @@ if (viteDevServer) {
 }
 
 app.use(express.static("build/client", { maxAge: "1h" }));
-app.use('/service-worker.js', express.static(path.join(__dirname, '/app/public/service-worker.tsx')));
 
 app.use(morgan("tiny"));
 
