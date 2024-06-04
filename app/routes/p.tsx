@@ -21,46 +21,44 @@ export default function Index() {
 	const [currentHistoryIndex, setCurrentHistoryIndex] = useState(-1);
 
 	useEffect(() => {
-		const params = new URLSearchParams(location.search);
-		const q = params.get("q");
-		if (q) {
-			const src = decodeURIComponent(atob(q));
-	
-			// fancy giberish to check if src is a valid URL or just a search query
-			const urlPattern = new RegExp(
-				"^(https?:\\/\\/)?" +
-				"((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|" +
-				"((\\d{1,3}\\.){3}\\d{1,3}))" +
-				"(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*" +
-				"(\\?[;&a-z\\d%_.~+=-]*)?" +
-				"(\\#[-a-z\\d_]*)?$",
-				"i",
-			);
-			if (urlPattern.test(src)) {
-				const handleMessage = (event: MessageEvent) => {
-					setIframeSrc(event.data);
-					setSearchHistory((prevHistory: string[]) => [...prevHistory, src]);
-					setCurrentHistoryIndex((prevIndex: number) => prevIndex + 1);
-				};
-	
-				navigator.serviceWorker.addEventListener('message', handleMessage);
-				return () => {
-					navigator.serviceWorker.removeEventListener('message', handleMessage);
-				};
-			} else {
-				const duckDuckGoUrl = `https://duckduckgo.com/?q=${encodeURIComponent(src)}`;				
-				const handleMessage = (event: MessageEvent) => {					
-					setIframeSrc(event.data);
-					setSearchHistory((prevHistory: string[]) => [...prevHistory, duckDuckGoUrl]);
-					setCurrentHistoryIndex((prevIndex: number) => prevIndex + 1);
-				};
-	
-				navigator.serviceWorker.addEventListener('message', handleMessage);
-				return () => {
-					navigator.serviceWorker.removeEventListener('message', handleMessage);
-				};
-			}
-		}
+	  const params = new URLSearchParams(location.search);
+	  const search = params.get("search");
+	  console.log('search:', search);  
+	  if (search) {
+		const src = decodeURIComponent(atob(search));
+		console.log('src:', src);  
+		const urlPattern = new RegExp(
+		  "^(https?:\\/\\/)?" +
+		  "((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|" +
+		  "((\\d{1,3}\\.){3}\\d{1,3}))" +
+		  "(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*" +
+		  "(\\?[;&a-z\\d%_.~+=-]*)?" +
+		  "(\\#[-a-z\\d_]*)?$",
+		  "i"
+		);
+		if ('serviceWorker' in navigator) {
+			navigator.serviceWorker.ready.then((registration) => {
+			  if (registration.active) {
+				if (urlPattern.test(src)) {
+				  console.log('navigator.serviceWorker.controller:', registration.active);
+				  registration.active.postMessage({
+					type: 'FETCH_URL',
+					url: src,
+				  });
+				} else {
+				  const duckDuckGoUrl = `https://duckduckgo.com/?q=${encodeURIComponent(src)}`;
+				  console.log('navigator.serviceWorker.controller:', registration.active);
+				  registration.active.postMessage({
+					type: 'FETCH_URL',
+					url: duckDuckGoUrl,
+				  });
+				}
+			  } else {
+				console.log('No active service worker found.');
+			  }
+			});
+		  }
+	  }
 	}, [location]);
 	
 	useEffect(() => {

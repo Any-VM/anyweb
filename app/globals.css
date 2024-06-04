@@ -117,7 +117,7 @@
 		filter: blur(85px);
 	}
 	.contrib {
-		@apply inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 transition-all duration-300 border border-input bg-[color:var(--background-button)] hover:shadow-[0_0_15px_0px_rgba(30,41,59,0.75)_inset] hover:text-accent-foreground p-4;
+		@apply inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 duration-300 border border-input bg-[color:var(--background-button)] hover:shadow-[0_0_15px_0px_rgba(30,41,59,0.75)_inset] hover:text-accent-foreground p-4;
 	}
 }
 @font-face {

@@ -41,28 +41,28 @@ export default function TopBar() {
 	const [erudaIsToggled, setErudaIsToggled] = useState(false);
 	const erudaRef = useRef<any>(null);
 
-	useEffect(() => {
-		if (erudaIsToggled) {
-		  import("eruda").then((eruda) => {
-			if (!erudaRef.current) {
-			  (eruda as any).init({
-				useShadowDom: true,
-				autoScale: true,
-				defaults: {
-				  displaySize: 45,
-				  transparency: 0.8,
-				  theme: "Arc Dark",
-				},
-			  });
-			  erudaRef.current = eruda;
-			}
-			eruda.default.show();
-		  });
-		} else if (erudaRef.current) {
-		  erudaRef.current.destroy();
-		  erudaRef.current = null;
-		}
-	  }, [erudaIsToggled]);
+useEffect(() => {
+  if (erudaIsToggled) {
+    import("eruda").then((eruda) => {
+      if (!erudaRef.current) {
+        (eruda as any).init({
+          useShadowDom: true,
+          autoScale: true,
+          defaults: {
+            displaySize: 45,
+            transparency: 0.8,
+            theme: "Arc Dark",
+          },
+        });
+        erudaRef.current = eruda;
+      }
+      eruda.default.show();
+    });
+  } else if (erudaRef.current) {
+    erudaRef.current.destroy();
+    erudaRef.current = null;
+  }
+}, [erudaIsToggled]);
 
 	const loadEruda = () => setErudaIsToggled(!erudaIsToggled);
 
