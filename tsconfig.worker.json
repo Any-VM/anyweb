@@ -1,11 +1,6 @@
 {
     "include": [
-        "**/*.ts",
-        "**/*.tsx",
-        "**/.server/**/*.ts",
-        "**/.server/**/*.tsx",
-        "**/.client/**/*.ts",
-        "**/.client/**/*.tsx"
+        "**/service-worker.tsx"
     ],
 
     "compilerOptions": {

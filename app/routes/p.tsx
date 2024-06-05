@@ -21,6 +21,7 @@ export default function Index() {
 	const [currentHistoryIndex, setCurrentHistoryIndex] = useState(-1);
 
 	useEffect(() => {
+<<<<<<< HEAD
 	  const params = new URLSearchParams(location.search);
 	  const search = params.get("search");
 	  console.log('search:', search);  
@@ -54,8 +55,54 @@ export default function Index() {
 		  });
 		}
 	  }
+=======
+		const params = new URLSearchParams(location.search);
+		const search = params.get("search");
+		console.log("search:", search);
+		if (search) {
+			const src = decodeURIComponent(atob(search));
+			console.log("src:", src);
+			const urlPattern = new RegExp(
+				"^(https?:\\/\\/)?" +
+					"((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|" +
+					"((\\d{1,3}\\.){3}\\d{1,3}))" +
+					"(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*" +
+					"(\\?[;&a-z\\d%_.~+=-]*)?" +
+					"(\\#[-a-z\\d_]*)?$",
+				"i",
+			);
+			if ("serviceWorker" in navigator) {
+				navigator.serviceWorker.ready.then((registration) => {
+					if (registration.active) {
+						if (urlPattern.test(src)) {
+							console.log(
+								"navigator.serviceWorker.controller:",
+								registration.active,
+							);
+							registration.active.postMessage({
+								type: "FETCH_URL",
+								url: src,
+							});
+						} else {
+							const duckDuckGoUrl = `https://duckduckgo.com/?q=${encodeURIComponent(src)}`;
+							console.log(
+								"navigator.serviceWorker.controller:",
+								registration.active,
+							);
+							registration.active.postMessage({
+								type: "FETCH_URL",
+								url: duckDuckGoUrl,
+							});
+						}
+					} else {
+						console.log("No active service worker found.");
+					}
+				});
+			}
+		}
+>>>>>>> 1d91729d8f5b23891a993ae664a2b5079720f89c
 	}, [location]);
-	
+
 	useEffect(() => {
 		localStorage.setItem("searchHistory", JSON.stringify(searchHistory));
 	}, [searchHistory]);
@@ -77,27 +124,27 @@ export default function Index() {
 	// if someone other then me reads this, its easy to make forward and back buttons, just use the goBack and goForward functions on a button or smth, u can figure this out. Also you can use the searchHistory array to make a history view type thing
 
 	return (
-        <main className="h-screen overflow-hidden">
-            <Link to="/" prefetch="render" />
-            <Link to="/g" prefetch="render" />
+		<main className="h-screen overflow-hidden">
+			<Link to="/" prefetch="render" />
+			<Link to="/g" prefetch="render" />
 
-            <TopBar />
+			<TopBar />
 
-            <iframe
-                src={iframeSrc}
-                sandbox="allow-same-origin allow-scripts"
-                onLoad={(event) => {
-                    const iframe = event.target as HTMLIFrameElement;
-                    const originalUrl = iframe.contentWindow?.location.href;
-                    if (originalUrl) {
-                        setSearchHistory((prevHistory) => [
-                            ...prevHistory,
-                            originalUrl,
-                        ]);
-                        setCurrentHistoryIndex((prevIndex) => prevIndex + 1);
-                    }
-                }}
-            ></iframe>
-        </main>
-    );
+			<iframe
+				src={iframeSrc}
+				sandbox="allow-same-origin allow-scripts"
+				title="AnyWeb Window"
+				onLoad={(event) => {
+					const iframe = event.target as HTMLIFrameElement;
+					const originalUrl = iframe.contentWindow?.location.href;
+					if (originalUrl) {
+						setSearchHistory((prevHistory) => [
+							...prevHistory,
+							originalUrl,
+						]);
+						setCurrentHistoryIndex((prevIndex) => prevIndex + 1);
+					}
+				}}></iframe>
+		</main>
+	);
 }

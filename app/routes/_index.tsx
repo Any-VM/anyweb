@@ -1,5 +1,4 @@
 import type { MetaFunction } from "@remix-run/node";
-import React, { useState } from "react";
 import { Link } from "@remix-run/react";
 import TopBar from "../components/topbar";
 import Landing from "../components/landing";
