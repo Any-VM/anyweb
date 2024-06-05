@@ -37,27 +37,22 @@ export default function Index() {
 		  "i"
 		);
 		if ('serviceWorker' in navigator) {
-			navigator.serviceWorker.ready.then((registration) => {
-			  if (registration.active) {
-				if (urlPattern.test(src)) {
-				  console.log('navigator.serviceWorker.controller:', registration.active);
-				  registration.active.postMessage({
-					type: 'FETCH_URL',
-					url: src,
-				  });
-				} else {
-				  const duckDuckGoUrl = `https://duckduckgo.com/?q=${encodeURIComponent(src)}`;
-				  console.log('navigator.serviceWorker.controller:', registration.active);
-				  registration.active.postMessage({
-					type: 'FETCH_URL',
-					url: duckDuckGoUrl,
-				  });
-				}
-			  } else {
-				console.log('No active service worker found.');
-			  }
-			});
-		  }
+		  navigator.serviceWorker.ready.then((registration) => {
+			console.log('navigator.serviceWorker.ready:', registration.active)
+			if (registration.active) {
+			  const url = urlPattern.test(src) ? src : `https://duckduckgo.com/?q=${encodeURIComponent(src)}`;
+			  console.log('navigator.serviceWorker.controller:', registration.active);
+			  registration.active.postMessage({
+				type: 'FETCH_URL',
+				url: url,
+			  });
+			} else {
+			  console.log('No active service worker found.');
+			}
+		  }).catch((error) => {
+			console.log('Error waiting for service worker to become ready:', error);
+		  });
+		}
 	  }
 	}, [location]);
 	
