@@ -1,9 +1,9 @@
-import { useEffect, useState } from "react";
-import { useLocation } from "@remix-run/react";
-import moment from "moment";
-import particlesConfig from "./particlesJsConfig.json";
+import { useEffect, useState } from 'react';
+import { useLocation } from '@remix-run/react';
+import moment from 'moment';
+import particlesConfig from './particlesJsConfig.json';
 
-import { Button } from "@/components/ui/button";
+import { Button } from '@/components/ui/button';
 
 declare global {
 	interface Window {
@@ -17,7 +17,7 @@ export default function Landing() {
 		// alla this shit just to make particles.js work. Someone should remake my particles.js config in tsParticles so ion have to deal with this shit
 		const initParticlesJS = () => {
 			if (window.particlesJS) {
-				window.particlesJS("particles-js", particlesConfig);
+				window.particlesJS('particles-js', particlesConfig);
 				return true;
 			} else {
 				return false;
@@ -55,6 +55,12 @@ export default function Landing() {
 		return () => clearInterval(interval);
 	}, []);
 
+	const [isHydrated, setIsHydrated] = useState(false);
+
+	useEffect(() => {
+		setIsHydrated(true);
+	}, []);
+
 	return (
 		<div className="h-screen w-screen select-none">
 			<link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -65,7 +71,7 @@ export default function Landing() {
 			/>
 
 			<div
-				className={`default-bg absolute bottom-[-10vh] left-[-10vw] h-[120vh] w-[120vw] select-none ${forceIsActive ? "" : ""}`}></div>
+				className={`default-bg absolute bottom-[-10vh] left-[-10vw] h-[120vh] w-[120vw] select-none ${forceIsActive ? '' : ''}`}></div>
 			<script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
 			<div id="particles-js"></div>
 			<div
@@ -78,29 +84,29 @@ export default function Landing() {
 				tabIndex={0}></div>
 			<div
 				className={`hero absolute left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%] text-center font-['Italianno'] text-[200px] text-white transition-all duration-500 ${
-					isActive ? "hero-selected hero-hover" : ""
+					isActive ? 'hero-selected hero-hover' : ''
 				} ${
 					forceIsActive
-						? "hero-selected hero-clicked !top-[calc(50%-2.2rem)]"
-						: ""
+						? 'hero-selected hero-clicked !top-[calc(50%-2.2rem)]'
+						: ''
 				}`}>
 				Anyweb
 			</div>
 			<div
 				className={`hero-line absolute left-[10vw] top-[59vh] !z-0 h-[0.25rem] w-[80vw] translate-y-[-50%] bg-[transparent] transition-all duration-300 ${
-					forceIsActive ? "hero-line-hover !bg-border" : ""
+					forceIsActive ? 'hero-line-hover !bg-border' : ''
 				}`}
 			/>
 			<div
 				className={`absolute left-0 top-[60.5vh] !z-0 h-[0.25rem] w-[100vw] translate-y-[-50%] text-center italic text-[transparent] transition-all duration-300 ${
-					forceIsActive ? "clock text-[var(--border-light)]" : ""
+					forceIsActive ? 'clock text-[var(--border-light)]' : ''
 				}`}>
-				{currentTime.format("dddd, h:mm:ss A")}
+				{isHydrated && <>{currentTime.format('dddd, h:mm:ss A')} </>}
 			</div>
 			<div
 				className={`text-unimportant absolute left-0 top-[63.5vh] !z-0 h-[0.25rem] w-[100vw] translate-y-[-50%] text-center italic text-[transparent] transition-all duration-300
-                ${isActive ? "!clock !text-[var(--border-light)] duration-300" : ""}
-                ${forceIsActive ? "!text-unimportant top-[61vh] !text-[transparent] duration-150" : ""}`}>
+                ${isActive ? '!clock !text-[var(--border-light)] duration-300' : ''}
+                ${forceIsActive ? '!text-unimportant top-[61vh] !text-[transparent] duration-150' : ''}`}>
 				<span>Click Me!</span>
 			</div>
 			<a
