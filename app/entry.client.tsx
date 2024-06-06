@@ -5,7 +5,7 @@ import { hydrateRoot } from 'react-dom/client';
 
 if ('serviceWorker' in navigator) {
 	navigator.serviceWorker
-		.register('/app/public/service-worker.tsx')
+		.register('/service-worker.ts')
 		.then(registration => {
 			console.log(
 				'Service Worker registered with scope:',
