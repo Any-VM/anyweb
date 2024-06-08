@@ -55,7 +55,17 @@ export default function Index() {
 		}
 	  }
 	}, [location]);
-
+	useEffect(() => {
+		function handleMessage(event: MessageEvent) {
+		  if (event.data && event.data.type === 'FETCH_RESPONSE') {
+			setIframeSrc(event.data.response);
+		  }
+		}
+		navigator.serviceWorker.addEventListener('message', handleMessage);
+		return () => {
+		  navigator.serviceWorker.removeEventListener('message', handleMessage);
+		};
+	  }, []);
 	useEffect(() => {
 		localStorage.setItem("searchHistory", JSON.stringify(searchHistory));
 	}, [searchHistory]);

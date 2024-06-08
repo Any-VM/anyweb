@@ -126,24 +126,15 @@ export default function TopBar() {
 	const [isMacOS, setIsMacOS] = useState(false);
 	useEffect(() => {
 		const checkMacOS = () => {
-			if (navigator.userAgent) {
-				if (navigator.getHighEntropyValues) {
-					navigator
-						.getHighEntropyValues(['platform'])
-						.then((result: { [key: string]: string }) => {
-							setIsMacOS(result.platform === 'macOS');
-						});
-				} else {
-					const userAgent = navigator.userAgent.toLowerCase();
-					setIsMacOS(userAgent.includes('mac'));
-				}
-			} else {
-				const userAgent = navigator.userAgent.toLowerCase();
-				setIsMacOS(userAgent.includes('mac'));
-			}
+		  if (navigator.userAgent) {
+			setIsMacOS(navigator.userAgent.includes('Mac'));
+		  } else if (navigator.userAgent) {
+			const userAgent = navigator.userAgent.toLowerCase();
+			setIsMacOS(userAgent.includes('mac'));
+		  }
 		};
 		checkMacOS();
-	}, []);
+	  }, []);
 
 	const [inputValueP, setInputValueP] = useState('');
 	const [inputValueG, setInputValueG] = useState('');
