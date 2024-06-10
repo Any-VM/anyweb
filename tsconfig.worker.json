@@ -1,6 +1,6 @@
 {
     "include": [
-        "**/service-worker.tsx"
+        "**/service-worker.ts"
     ],
 
     "compilerOptions": {
