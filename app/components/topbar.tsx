@@ -126,15 +126,15 @@ export default function TopBar() {
 	const [isMacOS, setIsMacOS] = useState(false);
 	useEffect(() => {
 		const checkMacOS = () => {
-		  if (navigator.userAgent) {
-			setIsMacOS(navigator.userAgent.includes('Mac'));
-		  } else if (navigator.userAgent) {
-			const userAgent = navigator.userAgent.toLowerCase();
-			setIsMacOS(userAgent.includes('mac'));
-		  }
+			if (navigator.userAgent) {
+				setIsMacOS(navigator.userAgent.includes('Mac'));
+			} else if (navigator.userAgent) {
+				const userAgent = navigator.userAgent.toLowerCase();
+				setIsMacOS(userAgent.includes('mac'));
+			}
 		};
 		checkMacOS();
-	  }, []);
+	}, []);
 
 	const [inputValueP, setInputValueP] = useState('');
 	const [inputValueG, setInputValueG] = useState('');
@@ -177,7 +177,8 @@ export default function TopBar() {
 					className={pageSelectEffect('/')}
 					onMouseEnter={() => handleMouseEnter('/')}
 					onMouseLeave={handleMouseLeave}
-					onClick={() => handleClick('/')}>
+					onClick={() => handleClick('/')}
+				>
 					<Home className="button-content" />
 				</Button>
 
@@ -186,7 +187,8 @@ export default function TopBar() {
 					className={pageSelectEffect('/g')}
 					onMouseEnter={() => handleMouseEnter('/g')}
 					onMouseLeave={handleMouseLeave}
-					onClick={() => handleClick('/g')}>
+					onClick={() => handleClick('/g')}
+				>
 					<Gamepad2 className="button-content size-[1.125rem]" />
 				</Button>
 
@@ -233,19 +235,22 @@ export default function TopBar() {
 							<DialogTrigger>
 								<Button
 									variant="outline"
-									className="flex size-10 flex-col">
+									className="flex size-10 flex-col"
+								>
 									<svg
 										className="button-content size-6"
 										viewBox="-4.8 -4.8 57.60 57.60"
 										xmlns="http://www.w3.org/2000/svg"
 										fill="transparent"
 										stroke="#fff"
-										strokeWidth="2.5">
+										strokeWidth="2.5"
+									>
 										<g id="SVGRepo_bgCarrier"></g>
 										<g
 											id="SVGRepo_tracerCarrier"
 											strokeLinecap="round"
-											strokeLinejoin="round"></g>
+											strokeLinejoin="round"
+										></g>
 										<g id="SVGRepo_iconCarrier">
 											<defs></defs>
 											<path d="M4.21,22.12a2.87,2.87,0,0,0,0,3.77L22.12,43.8a2.87,2.87,0,0,0,3.77,0l17.9-17.91a2.85,2.85,0,0,0,0-3.77L25.89,4.21A2.68,2.68,0,0,0,24,3.51h0a2.66,2.66,0,0,0-1.88.71Z"></path>
@@ -253,29 +258,35 @@ export default function TopBar() {
 												x1="26.33"
 												y1="17.85"
 												x2="30.15"
-												y2="21.67"></line>
+												y2="21.67"
+											></line>
 											<line
 												x1="17.4"
 												y1="8.92"
 												x2="21.67"
-												y2="13.19"></line>
+												y2="13.19"
+											></line>
 											<circle
 												cx="24"
 												cy="32.41"
-												r="3.3"></circle>
+												r="3.3"
+											></circle>
 											<circle
 												cx="24"
 												cy="15.52"
-												r="3.3"></circle>
+												r="3.3"
+											></circle>
 											<circle
 												cx="32.48"
 												cy="24"
-												r="3.3"></circle>
+												r="3.3"
+											></circle>
 											<line
 												x1="24"
 												y1="29.11"
 												x2="24"
-												y2="18.82"></line>
+												y2="18.82"
+											></line>
 										</g>
 									</svg>
 								</Button>
@@ -296,10 +307,12 @@ export default function TopBar() {
 											<Link
 												className="flex p-2"
 												to="https://github.com/any-vm"
-												prefetch="intent">
+												prefetch="intent"
+											>
 												<Button
 													variant="outline"
-													className="focus-visible:ring-none flex size-10 flex-col focus-visible:ring-transparent">
+													className="focus-visible:ring-none flex size-10 flex-col focus-visible:ring-transparent"
+												>
 													<Github className="button-content" />
 												</Button>
 												<span className="m-2 place-self-center">
@@ -309,26 +322,31 @@ export default function TopBar() {
 											<Link
 												className="flex p-2"
 												to="https://github.com/any-vm/anyweb"
-												prefetch="intent">
+												prefetch="intent"
+											>
 												<Button
 													variant="outline"
-													className="focus-visible:ring-none flex size-10 flex-col focus-visible:ring-transparent">
+													className="focus-visible:ring-none flex size-10 flex-col focus-visible:ring-transparent"
+												>
 													<svg
 														className="button-content size-10 translate-x-[0.675rem] translate-y-[0.1rem] hover:translate-x-[0.7425rem] hover:translate-y-[0.11rem]"
 														xmlns="http://www.w3.org/2000/svg"
 														version="1.1"
 														width="20"
-														height="20">
+														height="20"
+													>
 														<g
 															xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
 															id="ViewLayer_LineSet"
 															groupmode="lineset"
-															label="ViewLayer_LineSet">
+															label="ViewLayer_LineSet"
+														>
 															<g
 																xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
 																groupmode="layer"
 																id="strokes"
-																label="strokes">
+																label="strokes"
+															>
 																<path
 																	fill="none"
 																	strokeWidth="1.25"
@@ -654,7 +672,8 @@ export default function TopBar() {
 									<Link
 										prefetch="intent"
 										to="https://github.com/any-vm/anyweb/graphs/contributors"
-										className="contrib">
+										className="contrib"
+									>
 										<kbd>
 											<img
 												src="https://contrib.rocks/image?repo=anyvm/anyweb"
@@ -670,7 +689,8 @@ export default function TopBar() {
 							<SheetTrigger>
 								<Button
 									variant="outline"
-									className="focus-visible:ring-none flex size-10 flex-col focus-visible:ring-transparent">
+									className="focus-visible:ring-none flex size-10 flex-col focus-visible:ring-transparent"
+								>
 									<Settings2 className="button-content focus-visible:ring-0" />
 								</Button>
 							</SheetTrigger>
@@ -720,7 +740,8 @@ export default function TopBar() {
 
 								<Button
 									variant="outline"
-									className="flex size-10 flex-col">
+									className="flex size-10 flex-col"
+								>
 									<Code className="button-content focus-visible:ring-0" />
 								</Button>
 							</SheetContent>

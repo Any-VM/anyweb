@@ -3,11 +3,11 @@ import {
 	Meta,
 	Outlet,
 	Scripts,
-	ScrollRestoration,
-} from "@remix-run/react";
-import "./globals.css";
+	ScrollRestoration
+} from '@remix-run/react';
+import './globals.css';
 
-import { useEffect } from "react";
+import { useEffect } from 'react';
 
 export function Layout({ children }: { children: React.ReactNode }) {
 	useEffect(() => {

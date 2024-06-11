@@ -71,7 +71,8 @@ export default function Landing() {
 			/>
 
 			<div
-				className={`default-bg absolute bottom-[-10vh] left-[-10vw] h-[120vh] w-[120vw] select-none ${forceIsActive ? '' : ''}`}></div>
+				className={`default-bg absolute bottom-[-10vh] left-[-10vw] h-[120vh] w-[120vw] select-none ${forceIsActive ? '' : ''}`}
+			></div>
 			<script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
 			<div id="particles-js"></div>
 			<div
@@ -81,7 +82,8 @@ export default function Landing() {
 				onClick={handleClick}
 				onKeyDown={handleClick}
 				role="button"
-				tabIndex={0}></div>
+				tabIndex={0}
+			></div>
 			<div
 				className={`hero absolute left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%] text-center font-['Italianno'] text-[200px] text-white transition-all duration-500 ${
 					isActive ? 'hero-selected hero-hover' : ''
@@ -89,7 +91,8 @@ export default function Landing() {
 					forceIsActive
 						? 'hero-selected hero-clicked !top-[calc(50%-2.2rem)]'
 						: ''
-				}`}>
+				}`}
+			>
 				Anyweb
 			</div>
 			<div
@@ -100,18 +103,21 @@ export default function Landing() {
 			<div
 				className={`absolute left-0 top-[60.5vh] !z-0 h-[0.25rem] w-[100vw] translate-y-[-50%] text-center italic text-[transparent] transition-all duration-300 ${
 					forceIsActive ? 'clock text-[var(--border-light)]' : ''
-				}`}>
+				}`}
+			>
 				{isHydrated && <>{currentTime.format('dddd, h:mm:ss A')} </>}
 			</div>
 			<div
 				className={`text-unimportant absolute left-0 top-[63.5vh] !z-0 h-[0.25rem] w-[100vw] translate-y-[-50%] text-center italic text-[transparent] transition-all duration-300
                 ${isActive ? '!clock !text-[var(--border-light)] duration-300' : ''}
-                ${forceIsActive ? '!text-unimportant top-[61vh] !text-[transparent] duration-150' : ''}`}>
+                ${forceIsActive ? '!text-unimportant top-[61vh] !text-[transparent] duration-150' : ''}`}
+			>
 				<span>Click Me!</span>
 			</div>
 			<a
 				href="https://discord.gg/6FqaQxFEKp"
-				className="absolute bottom-[0.5rem] left-[0.5rem] z-10">
+				className="absolute bottom-[0.5rem] left-[0.5rem] z-10"
+			>
 				<Button variant="outline" className="flex size-10 flex-col">
 					<svg
 						className="button-content size-40"
@@ -119,31 +125,36 @@ export default function Landing() {
 						height="256px"
 						viewBox="0 0 192 192"
 						xmlns="http://www.w3.org/2000/svg"
-						fill="none">
+						fill="none"
+					>
 						<g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
 						<g
 							id="SVGRepo_tracerCarrier"
 							strokeLinecap="round"
-							strokeLinejoin="round"></g>
+							strokeLinejoin="round"
+						></g>
 						<g id="SVGRepo_iconCarrier">
 							<path
 								stroke="#fff"
 								strokeLinecap="round"
 								strokeLinejoin="round"
 								strokeWidth="12.48"
-								d="m68 138-8 16c-10.19-4.246-20.742-8.492-31.96-15.8-3.912-2.549-6.284-6.88-6.378-11.548-.488-23.964 5.134-48.056 19.369-73.528 1.863-3.334 4.967-5.778 8.567-7.056C58.186 43.02 64.016 40.664 74 39l6 11s6-2 16-2 16 2 16 2l6-11c9.984 1.664 15.814 4.02 24.402 7.068 3.6 1.278 6.704 3.722 8.567 7.056 14.235 25.472 19.857 49.564 19.37 73.528-.095 4.668-2.467 8.999-6.379 11.548-11.218 7.308-21.769 11.554-31.96 15.8l-8-16m-68-8s20 10 40 10 40-10 40-10"></path>
+								d="m68 138-8 16c-10.19-4.246-20.742-8.492-31.96-15.8-3.912-2.549-6.284-6.88-6.378-11.548-.488-23.964 5.134-48.056 19.369-73.528 1.863-3.334 4.967-5.778 8.567-7.056C58.186 43.02 64.016 40.664 74 39l6 11s6-2 16-2 16 2 16 2l6-11c9.984 1.664 15.814 4.02 24.402 7.068 3.6 1.278 6.704 3.722 8.567 7.056 14.235 25.472 19.857 49.564 19.37 73.528-.095 4.668-2.467 8.999-6.379 11.548-11.218 7.308-21.769 11.554-31.96 15.8l-8-16m-68-8s20 10 40 10 40-10 40-10"
+							></path>
 							<ellipse
 								cx="71"
 								cy="101"
 								fill="#fff"
 								rx="13"
-								ry="15"></ellipse>
+								ry="15"
+							></ellipse>
 							<ellipse
 								cx="121"
 								cy="101"
 								fill="#fff"
 								rx="13"
-								ry="15"></ellipse>
+								ry="15"
+							></ellipse>
 						</g>
 					</svg>
 				</Button>

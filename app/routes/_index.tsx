@@ -1,16 +1,16 @@
-import type { MetaFunction } from "@remix-run/node";
-import { Link } from "@remix-run/react";
-import TopBar from "../components/topbar";
-import Landing from "../components/landing";
+import type { MetaFunction } from '@remix-run/node';
+import { Link } from '@remix-run/react';
+import TopBar from '../components/topbar';
+import Landing from '../components/landing';
 
 export const meta: MetaFunction = () => {
 	return [
-		{ title: "AnyWeb" },
+		{ title: 'AnyWeb' },
 		{
-			name: "description",
+			name: 'description',
 			content:
-				"AnyWeb is a sleek and fast web service for bypassing internet censorship",
-		},
+				'AnyWeb is a sleek and fast web service for bypassing internet censorship'
+		}
 	];
 };
 

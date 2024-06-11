@@ -95,7 +95,7 @@
 		z-index: 3;
 	}
 	.italianno-regular {
-		font-family: "Italianno", cursive;
+		font-family: 'Italianno', cursive;
 		font-weight: 400;
 		font-style: normal;
 	}
@@ -117,46 +117,46 @@
 		filter: blur(85px);
 	}
 	.contrib {
-		@apply inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 duration-300 border border-input bg-[color:var(--background-button)] hover:shadow-[0_0_15px_0px_rgba(30,41,59,0.75)_inset] hover:text-accent-foreground p-4;
+		@apply inline-flex items-center justify-center whitespace-nowrap rounded-md border border-input bg-[color:var(--background-button)] p-4 text-sm font-medium ring-offset-background transition-colors duration-300 hover:text-accent-foreground hover:shadow-[0_0_15px_0px_rgba(30,41,59,0.75)_inset] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50;
 	}
 }
 @font-face {
-	font-family: "Geist";
+	font-family: 'Geist';
 	font-style: normal;
-	src: url("/node_modules/geist/dist/fonts/geist-sans/Geist-Light.woff2")
-		format("woff2");
+	src: url('/node_modules/geist/dist/fonts/geist-sans/Geist-Light.woff2')
+		format('woff2');
 	font-display: swap;
 	font-weight: 300;
 }
 @font-face {
-	font-family: "Geist";
+	font-family: 'Geist';
 	font-style: normal;
-	src: url("/node_modules/geist/dist/fonts/geist-sans/Geist-Regular.woff2")
-		format("woff2");
+	src: url('/node_modules/geist/dist/fonts/geist-sans/Geist-Regular.woff2')
+		format('woff2');
 	font-display: swap;
 	font-weight: 400;
 }
 @font-face {
-	font-family: "Geist";
+	font-family: 'Geist';
 	font-style: normal;
-	src: url("/node_modules/geist/dist/fonts/geist-sans/Geist-Medium.woff2")
-		format("woff2");
+	src: url('/node_modules/geist/dist/fonts/geist-sans/Geist-Medium.woff2')
+		format('woff2');
 	font-display: swap;
 	font-weight: 500;
 }
 @font-face {
-	font-family: "Geist";
+	font-family: 'Geist';
 	font-style: normal;
-	src: url("/node_modules/geist/dist/fonts/geist-sans/Geist-SemiBold.woff2")
-		format("woff2");
+	src: url('/node_modules/geist/dist/fonts/geist-sans/Geist-SemiBold.woff2')
+		format('woff2');
 	font-display: swap;
 	font-weight: 600;
 }
 @font-face {
-	font-family: "Geist";
+	font-family: 'Geist';
 	font-style: normal;
-	src: url("/node_modules/geist/dist/fonts/geist-sans/Geist-Bold.woff2")
-		format("woff2");
+	src: url('/node_modules/geist/dist/fonts/geist-sans/Geist-Bold.woff2')
+		format('woff2');
 	font-display: swap;
 	font-weight: 700;
 }

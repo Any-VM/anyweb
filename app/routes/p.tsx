@@ -1,85 +1,101 @@
-import type { MetaFunction } from "@remix-run/node";
-import React, { useEffect, useState } from "react";
-import { useLocation, Link } from "@remix-run/react";
-import TopBar from "../components/topbar";
+import type { MetaFunction } from '@remix-run/node';
+import React, { useEffect, useState } from 'react';
+import { useLocation, Link } from '@remix-run/react';
+import TopBar from '../components/topbar';
 
 export const meta: MetaFunction = () => {
 	return [
-		{ title: "AnyWeb" },
+		{ title: 'AnyWeb' },
 		{
-			name: "description",
+			name: 'description',
 			content:
-				"AnyWeb is a sleek and fast web service for bypassing internet censorship",
-		},
+				'AnyWeb is a sleek and fast web service for bypassing internet censorship'
+		}
 	];
 };
 
 export default function Index() {
 	const location = useLocation();
-	const [iframeSrc, setIframeSrc] = useState("");
+	const [iframeSrc, setIframeSrc] = useState('');
 	const [searchHistory, setSearchHistory] = useState<string[]>([]);
 	const [currentHistoryIndex, setCurrentHistoryIndex] = useState(-1);
 
 	useEffect(() => {
-	  const params = new URLSearchParams(location.search);
-	  const search = params.get("search");
-	  console.log('search:', search);  
-	  if (search) {
-		const src = decodeURIComponent(atob(search));
-		console.log('src:', src);  
-		const urlPattern = new RegExp(
-		  "^(https?:\\/\\/)?" +
-		  "((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|" +
-		  "((\\d{1,3}\\.){3}\\d{1,3}))" +
-		  "(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*" +
-		  "(\\?[;&a-z\\d%_.~+=-]*)?" +
-		  "(\\#[-a-z\\d_]*)?$",
-		  "i"
-		);
-		if ('serviceWorker' in navigator) {
-		  navigator.serviceWorker.ready.then((registration) => {
-			console.log('navigator.serviceWorker.ready:', registration.active)
-			if (registration.active) {
-			  const url = urlPattern.test(src) ? src : `https://duckduckgo.com/?q=${encodeURIComponent(src)}`;
-			  console.log('navigator.serviceWorker.controller:', registration.active);
-			  registration.active.postMessage({
-				type: 'FETCH_URL',
-				url: url,
-			  });
-			} else {
-			  console.log('No active service worker found.');
+		const params = new URLSearchParams(location.search);
+		const search = params.get('search');
+		console.log('search:', search);
+		if (search) {
+			const src = decodeURIComponent(atob(search));
+			console.log('src:', src);
+			const urlPattern = new RegExp(
+				'^(https?:\\/\\/)?' +
+					'((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|' +
+					'((\\d{1,3}\\.){3}\\d{1,3}))' +
+					'(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*' +
+					'(\\?[;&a-z\\d%_.~+=-]*)?' +
+					'(\\#[-a-z\\d_]*)?$',
+				'i'
+			);
+			if ('serviceWorker' in navigator) {
+				navigator.serviceWorker.ready
+					.then(registration => {
+						console.log(
+							'navigator.serviceWorker.ready:',
+							registration.active
+						);
+						if (registration.active) {
+							const url = urlPattern.test(src)
+								? src
+								: `https://duckduckgo.com/?q=${encodeURIComponent(src)}`;
+							console.log(
+								'navigator.serviceWorker.controller:',
+								registration.active
+							);
+							registration.active.postMessage({
+								type: 'FETCH_URL',
+								url: url
+							});
+						} else {
+							console.log('No active service worker found.');
+						}
+					})
+					.catch(error => {
+						console.log(
+							'Error waiting for service worker to become ready:',
+							error
+						);
+					});
 			}
-		  }).catch((error) => {
-			console.log('Error waiting for service worker to become ready:', error);
-		  });
 		}
-	  }
 	}, [location]);
 	useEffect(() => {
 		function handleMessage(event: MessageEvent) {
-		  if (event.data && event.data.type === 'FETCH_RESPONSE') {
-			setIframeSrc(event.data.response);
-		  }
+			if (event.data && event.data.type === 'FETCH_RESPONSE') {
+				setIframeSrc(event.data.response);
+			}
 		}
 		navigator.serviceWorker.addEventListener('message', handleMessage);
 		return () => {
-		  navigator.serviceWorker.removeEventListener('message', handleMessage);
+			navigator.serviceWorker.removeEventListener(
+				'message',
+				handleMessage
+			);
 		};
-	  }, []);
+	}, []);
 	useEffect(() => {
-		localStorage.setItem("searchHistory", JSON.stringify(searchHistory));
+		localStorage.setItem('searchHistory', JSON.stringify(searchHistory));
 	}, [searchHistory]);
 
 	const goBack = () => {
 		if (currentHistoryIndex > 0) {
-			setCurrentHistoryIndex((prevIndex) => prevIndex - 1);
+			setCurrentHistoryIndex(prevIndex => prevIndex - 1);
 			setIframeSrc(searchHistory[currentHistoryIndex - 1]);
 		}
 	};
 
 	const goForward = () => {
 		if (currentHistoryIndex < searchHistory.length - 1) {
-			setCurrentHistoryIndex((prevIndex) => prevIndex + 1);
+			setCurrentHistoryIndex(prevIndex => prevIndex + 1);
 			setIframeSrc(searchHistory[currentHistoryIndex + 1]);
 		}
 	};
@@ -97,17 +113,18 @@ export default function Index() {
 				src={iframeSrc}
 				sandbox="allow-same-origin allow-scripts"
 				title="AnyWeb Window"
-				onLoad={(event) => {
+				onLoad={event => {
 					const iframe = event.target as HTMLIFrameElement;
 					const originalUrl = iframe.contentWindow?.location.href;
 					if (originalUrl) {
-						setSearchHistory((prevHistory) => [
+						setSearchHistory(prevHistory => [
 							...prevHistory,
-							originalUrl,
+							originalUrl
 						]);
-						setCurrentHistoryIndex((prevIndex) => prevIndex + 1);
+						setCurrentHistoryIndex(prevIndex => prevIndex + 1);
 					}
-				}}></iframe>
+				}}
+			></iframe>
 		</main>
 	);
 }
