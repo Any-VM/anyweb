@@ -13,10 +13,10 @@ import dotenv from 'dotenv';
 dotenv.config();
 installGlobals();
 
-const port = parseInt(process.env.PORT as string, 10); //crllect, leave alone, setup env
+const port = parseInt(process.env.PORT as string, 10);
 
 const viteDevServer =
-	process.env.NODE_ENV === 'development'
+	process.env.NODE_ENV === 'production'
 		? undefined
 		: await import('vite').then(vite =>
 				vite.createServer({
